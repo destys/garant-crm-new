@@ -13,13 +13,12 @@ const Dashboard: React.FC = () => {
     const [filters, setFilters] = useState<Record<string, string>>({});
     const queryClient = useQueryClient();
     const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useOrders(filters);
-    console.log('data: ', data);
 
     const items: CollapseProps['items'] = [
         {
             key: '1',
             label: 'Фильтрация',
-            children: <Filters onFilterChange={setFilters} orders={data} />,
+            children: <Filters onFilterChange={setFilters} />,
         },
     ];
 

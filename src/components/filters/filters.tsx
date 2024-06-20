@@ -3,17 +3,15 @@ import { DatePicker, Form, Select } from 'antd';
 import { Dayjs } from 'dayjs';
 import useMasters from '../../hooks/use-masters';
 import Search from 'antd/es/input/Search';
-import { Order } from '../../types';
 import OrdersReport from '../orders-report/orders-report';
 
 const { RangePicker } = DatePicker;
 
-interface FiltersProps {
+interface IFilters {
     onFilterChange: (filters: Record<string, string>) => void;
-    orders: Order[]
 }
 
-const Filters: React.FC<FiltersProps> = ({ onFilterChange, orders }) => {
+const Filters: React.FC<IFilters> = ({ onFilterChange }) => {
     const { data, isLoading } = useMasters();
 
     const [dates, setDates] = useState<[Dayjs, Dayjs] | null>(null);
@@ -92,7 +90,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange, orders }) => {
             <Form.Item label="Мастер" layout="vertical">
                 <Select loading={isLoading} options={masterOptions} onChange={handleMasterChange} defaultValue={"Все мастера"} />
             </Form.Item>
-            <OrdersReport orders={orders} />
+            <OrdersReport />
         </Form>
     );
 };
