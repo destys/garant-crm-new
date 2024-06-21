@@ -14,20 +14,20 @@ export default defineConfig(({ mode }) => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png'],
         manifest: {
-          name: 'My App',
-          short_name: 'App',
-          description: 'This is my application',
+          name: 'Garant CRM',
+          short_name: 'Garant CRM',
+          description: 'Garant CRM',
           theme_color: '#ffffff',
           icons: [
             {
-              src: 'pwa-192x192.png',
+              src: 'vite.svg',
               sizes: '192x192',
-              type: 'image/png'
+              type: 'image/svg+xml'
             },
             {
-              src: 'pwa-512x512.png',
+              src: 'vite.svg',
               sizes: '512x512',
-              type: 'image/png'
+              type: 'image/svg+xml'
             }
           ]
         }
