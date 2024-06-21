@@ -6,21 +6,18 @@ import { Order } from '../../types';
 import { Link, useNavigate } from 'react-router-dom';
 import OrderMaster from './components/order-master';
 import OrderHeader from './components/order-header';
-import { useModal } from '../../context/modal-context';
 
 interface IOrderItem {
     data: Order;
 }
 
 const OrderItem: React.FC<IOrderItem> = ({ data }) => {
-    const { openModal } = useModal();
 
     const navigate = useNavigate();
 
     const masterName = data.attributes?.users_permissions_user.data !== null ? `${data.attributes?.users_permissions_user.data?.attributes?.name} ${data.attributes?.users_permissions_user.data?.attributes.last_name}` : 'Не назначен';
     return (
         <Card title={<OrderHeader title={data.attributes.order_number} status={data.attributes.order_status} />} actions={[
-            <EditOutlined key="edit" onClick={() => openModal(data)} />,
             <EditOutlined key="edit" onClick={() => navigate(`/orders/${data.id}`)} />,
             <OrderMaster key="ellipsis" text={masterName} />
         ]} className="flex flex-col" classNames={{

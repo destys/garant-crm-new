@@ -3,7 +3,7 @@ import useMasters from "../../hooks/use-masters"
 import Loader from '../../components/loaders/loader';
 import MastersItem from "../../components/masters-item/masters-item";
 
-const Masters = () => {
+const MastersPage = () => {
     const { data, isLoading, isError } = useMasters()
 
     return (
@@ -19,4 +19,4 @@ const Masters = () => {
     )
 }
 
-export default Masters
+export default MastersPage

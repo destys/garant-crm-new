@@ -76,6 +76,7 @@ export interface UserRole {
 export interface Client {
   id: number;
   attributes: {
+    name?: string;
     phone: string;
     address: string;
   };

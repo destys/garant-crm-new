@@ -9,7 +9,7 @@ import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 
-const Dashboard: React.FC = () => {
+const DashboardPage: React.FC = () => {
     const [filters, setFilters] = useState<Record<string, string>>({});
     const queryClient = useQueryClient();
     const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useOrders(filters);
@@ -56,4 +56,4 @@ const Dashboard: React.FC = () => {
     );
 };
 
-export default Dashboard;
+export default DashboardPage;

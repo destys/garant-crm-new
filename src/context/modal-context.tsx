@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Modal } from 'antd';
 import { Order } from '../types';
 import ModalTitle from '../components/modal-title/modal-title';
-import OrderDetails from '../components/order-details/order-details';
 
 
 interface ModalContextProps {
@@ -30,7 +29,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         <ModalContext.Provider value={{ openModal, closeModal }}>
             {children}
             <Modal open={isOpen} onCancel={closeModal} onOk={closeModal} title={<ModalTitle data={modalData} />} centered={true} width={1500} afterClose={() => setModalData(null)} >
-                {modalData && <OrderDetails data={modalData} />}
+                {/* {modalData && <OrderDetails data={modalData} />} */}
             </Modal>
         </ModalContext.Provider>
     );

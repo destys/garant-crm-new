@@ -10,7 +10,7 @@ type FieldType = {
   remember: boolean;
 };
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
   const { login } = useAuth();
@@ -81,4 +81,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

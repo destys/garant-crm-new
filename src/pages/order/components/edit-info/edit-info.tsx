@@ -3,9 +3,10 @@ import dayjs from "dayjs";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Button, DatePicker, Divider, Form, FormProps, Input, Select } from "antd";
-import { Order } from "../../../types"
-import { useAuth } from "../../../context/auth-context";
+import { Order } from "../../../../types"
+import { useAuth } from "../../../../context/auth-context";
 import { Store } from "antd/es/form/interface";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface IEditInfo {
     data: Order;
@@ -13,10 +14,12 @@ interface IEditInfo {
 
 
 const EditInfo: React.FC<IEditInfo> = ({ data }) => {
+    console.log('data: ', data);
     const [initialValues, setInitialValues] = useState<Store | undefined>();
     const [loading, setLoading] = useState(false);
-    
+
     const { userToken } = useAuth();
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         const values = {
@@ -78,6 +81,7 @@ const EditInfo: React.FC<IEditInfo> = ({ data }) => {
                     },
                 }
             );
+            queryClient.invalidateQueries({ queryKey: ['order'] });
             toast.success("Информация обновлена");
         } catch (error) {
             toast.error("Ошибка обновления данных");

@@ -8,7 +8,7 @@ interface ILoader {
 const LoaderWithBg: React.FC<ILoader> = ({ isLoading }) => {
     return (
         <>
-            <Spin spinning={isLoading} className="flex justify-center items-center absolute top-0 left-0 w-full h-full bg-white" />
+            <Spin spinning={isLoading} className={`flex justify-center items-center absolute top-0 left-0 z-[-1] w-full h-full bg-white ${isLoading && "z-50"}`} />
         </>
     );
 };

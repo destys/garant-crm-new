@@ -32,6 +32,11 @@ const LayoutComponent: React.FC<ILayoutComponent> = ({ children }) => {
         icon: <TeamOutlined />,
         label: `Мастера`,
         path: `/masters`
+    }, {
+        key: 'masters',
+        icon: <TeamOutlined />,
+        label: `Клиенты`,
+        path: `/clients`
     }]
 
     const handleClick = (e: { key: string; }) => {

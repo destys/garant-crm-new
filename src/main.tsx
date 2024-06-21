@@ -11,17 +11,19 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LayoutComponent from './components/layout/layout.tsx';
 import ToastProvider from './providers/toast.tsx';
 
-import Dashboard from './pages/dashboard/dashboard.tsx';
-import Profile from './pages/profile/profile.tsx';
-
 const queryClient = new QueryClient();
 
-import './index.scss';
 import { AuthProvider, useAuth } from './context/auth-context.tsx';
-import Login from './pages/login/login.tsx';
-import Masters from './pages/masters/masters.tsx';
 import { ModalProvider } from './context/modal-context.tsx';
-import Order from './pages/order/order.tsx';
+
+import './index.scss';
+import LoginPage from './pages/login/login-page.tsx';
+import DashboardPage from './pages/dashboard/dashboard-page.tsx';
+import OrderPage from './pages/order/order-page.tsx';
+import ProfilePage from './pages/profile/profile-page.tsx';
+import MastersPage from './pages/masters/masters-page.tsx';
+import ClientsPage from './pages/clients/clients-page.tsx';
+import ClientPage from './pages/clients/client-page.tsx';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Root: React.FC = () => {
@@ -32,7 +34,7 @@ const Root: React.FC = () => {
       <Outlet />
     </LayoutComponent>
   ) : (
-    <Login />
+    <LoginPage />
   );
 };
 
@@ -43,19 +45,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Dashboard />,
+        element: <DashboardPage />,
       },
       {
         path: '/orders/:id',
-        element: <Order />,
+        element: <OrderPage />,
       },
       {
         path: '/profile',
-        element: <Profile />,
+        element: <ProfilePage />,
       },
       {
         path: '/masters',
-        element: <Masters />,
+        element: <MastersPage />,
+      },
+      {
+        path: '/clients',
+        element: <ClientsPage />,
+      },
+      {
+        path: '/clients/:id',
+        element: <ClientPage />,
       },
     ],
   },
