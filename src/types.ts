@@ -19,6 +19,7 @@ export interface Order {
     order_status: string;
     users_permissions_user: {
       data: {
+        id: number;
         attributes: User;
       };
     };
