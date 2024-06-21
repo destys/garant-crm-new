@@ -27,7 +27,6 @@ export interface UploadedFileResponse {
 export const useUpload = (
   orderId: number,
   initialData: FileInterface[] | null,
-  uploadPath: string,
   populateField: string
 ) => {
   const { userToken } = useAuth();
