@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Order } from '../../types';
 import useOrders from '../../hooks/use-orders';
 import OrderItem from '../../components/order-item/order-item';
 import Loader from '../../components/loaders/loader';
-import Filters from '../../components/filters/filters';
+import Filters from './components/filters';
 import { useQueryClient, InvalidateQueryFilters } from '@tanstack/react-query';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
@@ -13,6 +13,7 @@ const DashboardPage: React.FC = () => {
     const [filters, setFilters] = useState<Record<string, string>>({});
     const queryClient = useQueryClient();
     const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useOrders(filters);
+    const observer = useRef<IntersectionObserver>();
 
     const items: CollapseProps['items'] = [
         {
@@ -30,16 +31,18 @@ const DashboardPage: React.FC = () => {
         queryClient.invalidateQueries(invalidateFilters);
     }, [filters, queryClient]);
 
-    const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
-        if (hasNextPage) fetchNextPage();
-    };
+    const lastElementRef = useCallback((node: HTMLDivElement) => {
+        if (isLoading || isFetchingNextPage) return;
+        if (observer.current) observer.current.disconnect();
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hasNextPage]);
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasNextPage) {
+                fetchNextPage();
+            }
+        });
+
+        if (node) observer.current.observe(node);
+    }, [isLoading, isFetchingNextPage, fetchNextPage, hasNextPage]);
 
     return (
         <div className="relative">
@@ -51,6 +54,7 @@ const DashboardPage: React.FC = () => {
                     ))
                 ))}
             </div>
+            <div ref={lastElementRef} style={{ height: 1 }}></div>
             <Loader isLoading={isFetchingNextPage || isLoading} />
         </div>
     );

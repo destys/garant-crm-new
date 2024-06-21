@@ -45,6 +45,12 @@ export interface Order {
       work_done: string;
       prepayment: string;
     };
+    device_photos: {
+      data: FileInterface[];
+    };
+    order_files: {
+      data: FileInterface[];
+    };
   };
 }
 
@@ -79,5 +85,29 @@ export interface Client {
     name?: string;
     phone: string;
     address: string;
+    orders: {
+      data: Order[];
+    };
+  };
+}
+
+export interface FileInterface {
+  id: number;
+  attributes: {
+    name: string;
+    alternativeText: string | null;
+    caption: string | null;
+    width: number;
+    height: number;
+    url: string;
+    formats: {
+      thumbnail: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        url: string;
+      };
+    };
   };
 }

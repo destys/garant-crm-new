@@ -33,7 +33,7 @@ const LayoutComponent: React.FC<ILayoutComponent> = ({ children }) => {
         label: `Мастера`,
         path: `/masters`
     }, {
-        key: 'masters',
+        key: 'clients',
         icon: <TeamOutlined />,
         label: `Клиенты`,
         path: `/clients`

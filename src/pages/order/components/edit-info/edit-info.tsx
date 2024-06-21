@@ -57,6 +57,7 @@ const EditInfo: React.FC<IEditInfo> = ({ data }) => {
 
     const onFinish: FormProps['onFinish'] = (values) => {
         try {
+            setLoading(true)
             // Преобразование дат в формат ISO
             const correctedValues = {
                 ...values,

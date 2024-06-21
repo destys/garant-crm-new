@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { DatePicker, Form, Select } from 'antd';
 import { Dayjs } from 'dayjs';
-import useMasters from '../../hooks/use-masters';
+import useMasters from '../../../hooks/use-masters';
 import Search from 'antd/es/input/Search';
-import OrdersReport from '../orders-report/orders-report';
+import OrdersReport from '../../../components/orders-report/orders-report';
 
 const { RangePicker } = DatePicker;
 

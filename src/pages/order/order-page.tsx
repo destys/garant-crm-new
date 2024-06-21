@@ -3,9 +3,10 @@ import useOrder from "../../hooks/use-order";
 import { Collapse } from "antd";
 import LoaderWithBg from "../../components/loaders/loader-with-bg";
 import CallActions from "./components/call-actions";
-import Photos from "./components/photos/photos";
 import EditInfo from "./components/edit-info/edit-info";
 import ClientCard from "./components/client/client";
+import UploadPhotos from "./components/upload-photos/upload-photos";
+import UploadDocuments from "./components/upload-documents/upload-documents";
 
 const OrderPage = () => {
     const params = useParams();
@@ -19,13 +20,14 @@ const OrderPage = () => {
     }
 
     const items = [
-        { key: '1', label: 'Редактирование информации', children: <EditInfo data={data} /> },
-        { key: '2', label: 'Информация о клиенте', children: <ClientCard data={data.attributes.client.data} /> },
-        { key: '3', label: 'Фото техники', children: <Photos /> },
-        { key: '4', label: 'Связь' },
-        { key: '5', label: 'Расчеты' },
-        { key: '6', label: 'Чат' },
-        { key: '7', label: 'Мастер', },
+        { key: 'EditInfo', label: 'Редактирование информации', children: <EditInfo data={data} /> },
+        { key: 'ClientCard', label: 'Информация о клиенте', children: <ClientCard data={data.attributes.client.data} /> },
+        { key: 'UploadPhotos', label: 'Фото техники', children: <UploadPhotos orderId={data.id} data={data.attributes.device_photos.data} /> },
+        { key: 'UploadDocuments', label: 'Загрузка документов', children: <UploadDocuments orderId={data.id} data={data.attributes.order_files.data} /> },
+        { key: '5', label: 'Связь' },
+        { key: '6', label: 'Расчеты' },
+        { key: '7', label: 'Чат' },
+        { key: '8', label: 'Мастер', },
     ]
 
     return (
