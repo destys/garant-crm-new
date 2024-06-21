@@ -10,7 +10,7 @@ interface IUploadPhotos {
 }
 
 const UploadPhotos: React.FC<IUploadPhotos> = ({ orderId, data }) => {
-    const { files: images, normFile, uploadProps, handleDelete } = useUpload(orderId, data, 'device_photos', 'device_photos');
+    const { files: images, normFile, uploadProps, handleDelete } = useUpload(orderId, data, 'device_photos');
     return (
         <>
             <Form>

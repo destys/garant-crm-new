@@ -10,7 +10,7 @@ interface IUploadDocuments {
 }
 
 const UploadDocuments: React.FC<IUploadDocuments> = ({ orderId, data }) => {
-    const { files: documents, normFile, uploadProps, handleDelete } = useUpload(orderId, data, 'order_files', 'order_files');
+    const { files: documents, normFile, uploadProps, handleDelete } = useUpload(orderId, data, 'order_files');
 
     return (
         <>
