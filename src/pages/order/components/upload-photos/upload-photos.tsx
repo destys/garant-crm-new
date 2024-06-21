@@ -29,17 +29,17 @@ const UploadPhotos: React.FC<IUploadPhotos> = ({ orderId, data }) => {
                     onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
                 }}
             >
-                <div className="flex flex-wrap gap-2">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 flex-wrap gap-2">
                     {images.map((image) => (
-                        <div key={image.id} className="relative">
+                        <div key={image.id} className="relative w-full">
                             <Image
-                                width={200}
+                                width={'100%'}
                                 height={150}
                                 src={`${process.env.REACT_APP_UPLOAD_URL}${image.attributes.url}`}
                                 preview={{
                                     src: `${process.env.REACT_APP_UPLOAD_URL}${image.attributes.url}`,
                                 }}
-                                className="object-cover h-full"
+                                className="object-cover w-full h-full"
                             />
                             <Button
                                 type="primary"
