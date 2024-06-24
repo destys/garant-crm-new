@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
@@ -25,9 +25,32 @@ import ClientsPage from './pages/clients/clients-page.tsx';
 import ClientPage from './pages/clients/client-page.tsx';
 import MasterPage from './pages/masters/master-page.tsx';
 
+const checkForNewVersion = () => {
+  fetch('/version.json')
+    .then(response => response.json())
+    .then(data => {
+      const currentVersion = localStorage.getItem('appVersion');
+      if (currentVersion !== data.version) {
+        localStorage.setItem('appVersion', data.version);
+        if ('caches' in window) {
+          caches.keys().then((names) => {
+            names.forEach((name) => {
+              caches.delete(name);
+            });
+          });
+        }
+        window.location.reload();
+      }
+    });
+};
+
 // eslint-disable-next-line react-refresh/only-export-components
 const Root: React.FC = () => {
   const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    checkForNewVersion();
+  }, []);
 
   return isAuthenticated ? (
     <LayoutComponent>
@@ -74,6 +97,16 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+      console.log('Service Worker registered with scope: ', registration.scope);
+    }).catch((error) => {
+      console.log('Service Worker registration failed: ', error);
+    });
+  });
+}
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
