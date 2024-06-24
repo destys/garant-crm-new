@@ -14,7 +14,6 @@ import ToastProvider from './providers/toast.tsx';
 const queryClient = new QueryClient();
 
 import { AuthProvider, useAuth } from './context/auth-context.tsx';
-import { ModalProvider } from './context/modal-context.tsx';
 
 import './index.scss';
 import LoginPage from './pages/login/login-page.tsx';
@@ -24,6 +23,7 @@ import ProfilePage from './pages/profile/profile-page.tsx';
 import MastersPage from './pages/masters/masters-page.tsx';
 import ClientsPage from './pages/clients/clients-page.tsx';
 import ClientPage from './pages/clients/client-page.tsx';
+import MasterPage from './pages/masters/master-page.tsx';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Root: React.FC = () => {
@@ -60,6 +60,10 @@ const router = createBrowserRouter([
         element: <MastersPage />,
       },
       {
+        path: '/masters/:id',
+        element: <MasterPage />,
+      },
+      {
         path: '/clients',
         element: <ClientsPage />,
       },
@@ -75,9 +79,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ModalProvider>
-          <RouterProvider router={router} />
-        </ModalProvider>
+        <RouterProvider router={router} />
       </AuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

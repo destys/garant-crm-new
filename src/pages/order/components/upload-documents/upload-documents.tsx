@@ -2,7 +2,7 @@ import { Form, Button } from 'antd';
 import { InboxOutlined, DeleteOutlined, FileOutlined, DownloadOutlined } from '@ant-design/icons';
 import { FileInterface } from '../../../../types';
 import Dragger from 'antd/es/upload/Dragger';
-import { useUpload } from '../../../../utils/upload-utils';
+import { useUpload } from '../../../../hooks/use-uploads';
 
 interface IUploadDocuments {
     orderId: number;
