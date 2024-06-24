@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Order } from '../../types';
 import useOrders from '../../hooks/use-orders';
 import OrderItem from '../../components/order-item/order-item';
 import Loader from '../../components/loaders/loader';
@@ -49,7 +48,7 @@ const DashboardPage: React.FC = () => {
             <Collapse expandIcon={() => <FilterOutlined />} items={items} defaultActiveKey={['1']} className="mb-6" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
                 {data?.pages.map((page) => (
-                    page.data.map((item: Order) => (
+                    page.data.map((item) => (
                         <OrderItem data={item} key={item.id} />
                     ))
                 ))}

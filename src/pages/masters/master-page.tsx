@@ -36,7 +36,7 @@ const MasterPage = () => {
     {
       key: "1",
       label: "Заказы мастера",
-      children: <MasterOrders data={data} />,
+      children: <MasterOrders masterId={data.id} />,
     }
   ]
 

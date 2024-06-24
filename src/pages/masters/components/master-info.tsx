@@ -8,7 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../../context/auth-context";
 
 interface IMasterInfo {
-    data: User
+    data: User | undefined
 }
 
 const MasterInfo: React.FC<IMasterInfo> = ({ data }) => {
@@ -19,12 +19,12 @@ const MasterInfo: React.FC<IMasterInfo> = ({ data }) => {
 
     useEffect(() => {
         const values = {
-            name: data.name,
-            last_name: data.last_name,
-            middle_name: data.middle_name,
-            role: data.role.id.toString(),
-            phone: data.phone,
-            email: data.email,
+            name: data?.name,
+            last_name: data?.last_name,
+            middle_name: data?.middle_name,
+            role: data?.role.id.toString(),
+            phone: data?.phone,
+            email: data?.email,
         };
 
         setInitialValues(values);
@@ -33,15 +33,15 @@ const MasterInfo: React.FC<IMasterInfo> = ({ data }) => {
     const onFinish: FormProps['onFinish'] = (values) => {
         setLoading(true);
         axios.put(
-            `${process.env.REACT_APP_API_URL}/users/${data.id}?populate=role`,
+            `${process.env.REACT_APP_API_URL}/users/${data?.id}?populate=role`,
             {
 
-                id: data.id,
+                id: data?.id,
                 name: values.name,
                 last_name: values.last_name,
                 middle_name: values.middle_name,
                 role: values.role,
-                phone: values.phone.toString(),
+                phone: values.phone?.toString(),
                 email: values.email,
             },
             {
@@ -49,18 +49,16 @@ const MasterInfo: React.FC<IMasterInfo> = ({ data }) => {
                     Authorization: "Bearer " + userToken,
                 },
             }
-        ).then((response) => {
-            console.log('response: ', response);
+        ).then(() => {
             queryClient.invalidateQueries({ queryKey: ['master'] });
             toast.success("Информация обновлена");
         }).catch((error) => {
             console.log('error: ', error);
             toast.error("Ошибка обновления данных");
-
         }).finally(() => {
             setLoading(false);
         });
-        console.log('Success:', values);
+        //  console.log('Success:', values);
     };
 
     return (
