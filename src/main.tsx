@@ -24,32 +24,31 @@ import MastersPage from './pages/masters/masters-page.tsx';
 import ClientsPage from './pages/clients/clients-page.tsx';
 import ClientPage from './pages/clients/client-page.tsx';
 import MasterPage from './pages/masters/master-page.tsx';
+import socket from './libs/socket.ts';
+import toast from 'react-hot-toast';
 
-const checkForNewVersion = () => {
-  fetch('/version.json')
-    .then(response => response.json())
-    .then(data => {
-      const currentVersion = localStorage.getItem('appVersion');
-      if (currentVersion !== data.version) {
-        localStorage.setItem('appVersion', data.version);
-        if ('caches' in window) {
-          caches.keys().then((names) => {
-            names.forEach((name) => {
-              caches.delete(name);
-            });
-          });
-        }
-        window.location.reload();
-      }
-    });
-};
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Root: React.FC = () => {
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    checkForNewVersion();
+    // Подписка на событие обновления данных
+    socket.on('connect', () => {
+      console.log('Socket подключен'); // Это сообщение должно появляться в консоли браузера
+    });
+
+    socket.on('dataUpdated', (newData) => {
+      console.log('first');
+      console.log('newData: ', newData);
+      toast.success('Создан новый заказ');
+    });
+
+    // Очистка подписки при размонтировании компонента
+    return () => {
+      socket.off('dataUpdated');
+      socket.off('connect');
+    };
   }, []);
 
   return isAuthenticated ? (
